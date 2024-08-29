@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
 interface themeContextData {
-    theme: "light" | "dark";
+    isDarkMode: boolean;
     toggleTheme: () => void;
 }
 
@@ -10,14 +10,16 @@ const ThemeContext = createContext<themeContextData>({} as themeContextData);
 
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-    const [theme, setTheme] = useState<"light" | "dark">("dark");
+    const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
 
     function toggleTheme() {
-        setTheme(theme === "light" ? "dark" : "light");
+        setIsDarkMode(!isDarkMode);
+        console.log(isDarkMode)
     }
 
+
     return (
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+        <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
             {children}
         </ThemeContext.Provider>
     )
